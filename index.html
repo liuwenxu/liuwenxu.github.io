@@ -301,7 +301,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2018/07/22/隐枚举/" itemprop="url">
-                  隐枚举
+                  未命名
                 </a>
               
             
@@ -327,7 +327,7 @@
                 
               
 
-              <time title="创建时间：2018-07-22 22:06:00 / 修改时间：22:06:32" itemprop="dateCreated datePublished" datetime="2018-07-22T22:06:00+08:00">2018-07-22</time>
+              <time title="创建时间：2018-07-22 22:07:19 / 修改时间：23:04:49" itemprop="dateCreated datePublished" datetime="2018-07-22T22:07:19+08:00">2018-07-22</time>
             
 
             
@@ -369,7 +369,7 @@
           
             <h1 id="隐枚举法"><a href="#隐枚举法" class="headerlink" title="隐枚举法"></a>隐枚举法</h1><p>隐枚举法是解决<strong>0-1整数规划</strong>问题的算法。课题组在研究无人机协同任务规划时，利用隐枚举法解决<strong>多无人机的任务分配</strong>问题。</p>
 <p>0-1规划是整数线性规划的一种特殊情形，指变量只能取0或者1的规划问题。<code>整数规划（Integer Programming）</code>分为纯整数线性规划（所有变量为整数）、混合整数线性规划（部分变量必须取整数）、以及0-1型整数线性规划。目前流行的求解整数规划的方法大多针对整数线性规划。求解方法包括<strong>分枝定界法、割平面法、隐枚举法，还有蒙特卡洛方法（蒙特卡洛好神奇，啥都能干）</strong>，等。</p>
-<h3 id="切入正题。"><a href="#切入正题。" class="headerlink" title="切入正题。"></a>切入正题。</h3><p>首先将任务分配问题转换为0-1整数规划模型，这里举最简单的情况。</p>
+<h2 id="切入正题"><a href="#切入正题" class="headerlink" title="切入正题"></a>切入正题</h2><p>首先将任务分配问题转换为0-1整数规划模型，这里举最简单的情况。</p>
 <p>假设我有m（取m=4）架无人机执行n（取n=2）项不同任务，则变量总数为m*n=8，取<math><msubsup><mi>x</mi> <mi>1</mi> <mi></mi></msubsup><mo>,</mo></math></p>
 <math><msubsup><mi>x</mi> <mi>2</mi> <mi></mi></msubsup><mo>,</mo></math><br><math><msubsup><mi>x</mi> <mi>3</mi> <mi></mi></msubsup><mo>,</mo></math><br><math><msubsup><mi>x</mi> <mi>4</mi> <mi></mi></msubsup><mo>,</mo></math><br><math><msubsup><mi>x</mi> <mi>5</mi> <mi></mi></msubsup><mo>,</mo></math><br><math><msubsup><mi>x</mi> <mi>6</mi> <mi></mi></msubsup><mo>,</mo></math><br><math><msubsup><mi>x</mi> <mi>7</mi> <mi></mi></msubsup><mo>,</mo></math><br><math><msubsup><mi>x</mi> <mi>8</mi> <mi></mi></msubsup><mo>,</mo></math>其中<br><math><msubsup><mi>x</mi><mi>1</mi><mi></mi></msubsup><mi>=</mi><mi>1</mi></math>则表示飞机1执行任务1,…，以此类推，<math><msubsup><mi>x</mi><mi>8</mi><mi></mi></msubsup><mo>=</mo><mn>1</mn></math>则表示飞机4执行任务2。不同无人机-任务对之间的执行时间用<br><math><msubsup><mi>a</mi> <mi>n</mi> <mi></mi></msubsup></math>表示，要求总代价时间最小：写出总的代价函数，如：<br><br>min <math><msubsup><mi>a</mi><mi>1</mi><mi></mi></msubsup><math><msubsup><mi>x</mi><mi>1</mi><mi></mi></msubsup></math><mi>+</mi></math><br><math><msubsup><mi>a</mi><mi>2</mi><mi></mi></msubsup><math><msubsup><mi>x</mi><mi>2</mi><mi></mi></msubsup></math><mi>+</mi></math><br><math><msubsup><mi>a</mi><mi>3</mi><mi></mi></msubsup><math><msubsup><mi>x</mi><mi>3</mi><mi></mi></msubsup></math><mi>+</mi></math><br><math><msubsup><mi>a</mi><mi>4</mi><mi></mi></msubsup><math><msubsup><mi>x</mi><mi>4</mi><mi></mi></msubsup></math><mi>+</mi></math><br><math><msubsup><mi>a</mi><mi>5</mi><mi></mi></msubsup><math><msubsup><mi>x</mi><mi>5</mi><mi></mi></msubsup></math><mi>+</mi></math><br><math><msubsup><mi>a</mi><mi>6</mi><mi></mi></msubsup><math><msubsup><mi>x</mi><mi>6</mi><mi></mi></msubsup></math><mi>+</mi></math><br><math><msubsup><mi>a</mi><mi>7</mi><mi></mi></msubsup><math><msubsup><mi>x</mi><mi>7</mi><mi></mi></msubsup></math><mi>+</mi></math><br><math><msubsup><mi>a</mi><mi>8</mi><mi></mi></msubsup><math><msubsup><mi>x</mi><mi>8</mi><mi></mi></msubsup><br><br>增加约束条件：（如油耗、威胁等价等，还有保证任务被完成、一架飞机只能完成一个任务等）<br>s.t.<br><math display="block"><br>    <msubsup><mi>A</mi> <mi>eq</mi> <mi></mi></msubsup><mi>x</mi><br>    <mo>≤</mo><br>    <msubsup> <mi>B</mi><mi>eq</mi> <mi></mi></msubsup><br></math>
 
