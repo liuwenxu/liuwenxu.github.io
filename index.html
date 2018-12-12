@@ -344,7 +344,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-12 16:22:25" itemprop="dateModified" datetime="2018-12-12T16:22:25+08:00">2018-12-12</time>
+                <time title="修改时间：2018-12-12 16:28:33" itemprop="dateModified" datetime="2018-12-12T16:28:33+08:00">2018-12-12</time>
               
             
           </span>
@@ -382,39 +382,23 @@
             <h2 id="背景关联"><a href="#背景关联" class="headerlink" title="背景关联"></a>背景关联</h2><p>空间机械臂通过计算关节指令实现自身运动，同时会对基座产生扰动。根据航天器与机械臂的运动学方程，以及组合体满足线动量和角动量守恒条件，可以列出一个既包含运动学微分方程，同时满足动量守恒条件的方程组，即微分代数方程组（differential algerbic equation）</p>
 <h2 id="切入正题"><a href="#切入正题" class="headerlink" title="切入正题"></a>切入正题</h2><p>这类方程形式复杂，很难得到解析解，通常采用数值解法计算。MATLAB中的odes求解器可以求解常微分方程组，也可以解决本文中的DAE问题。</p>
 <p>相较于常微分方程解法，DAE只需要增加一个mass参数即可，这个参数的功能是将方程组中的等式约束条件，即代数方程转换成微分方程的形式。</p>
-<p>###算例<br>DAE方程组为：</p>
-<div align="center"><br><img src="https://i.imgur.com/K1deEHH.png" width="250" height="90"><br></div>
-
-<p>设置Mass属性M矩阵：</p>
-<div align="center"><br><img src="https://i.imgur.com/1jVBfDH.png" width="120" height="80"><br></div>
-
-<p>其含义为：</p>
-<div align="center"><br><img src="https://i.imgur.com/4aVRDO8.png" width="80" height="25"><br></div>
-
-<p>接下来就可以使用ode15s或者ode23s进行解算。</p>
-<p>###代码</p>
-<p>####dae_test.m<br>    <code>function dy=dae_test(t,y)
+<h3 id="算例"><a href="#算例" class="headerlink" title="算例"></a>算例</h3><p>DAE方程组为：</p>
+<div align="center"><br><img src="https://i.imgur.com/K1deEHH.png" width="250" height="90"><br></div><br>设置Mass属性M矩阵：<br><div align="center"><br><img src="https://i.imgur.com/1jVBfDH.png" width="120" height="80"><br></div><br>其含义为：<br><div align="center"><br><img src="https://i.imgur.com/4aVRDO8.png" width="80" height="25"><br></div><br>接下来就可以使用ode15s或者ode23s进行解算。<br>### 代码<br><strong>dae_test.m</strong><br><br>    <code>function dy=dae_test(t,y)
     dy(1)=-0.04*y(1)+1e4*y(2)*y(3);
     dy(2)=0.04*y(1)-1e4*y(2)*y(3)-3e7*y(2)*y(2);
     dy(3)=y(1)+y(2)+y(3)-1;
-    dy=dy&#39;;</code></p>
-<p>####main.m</p>
-<pre><code>``
-clc;clear;close;
-y0=[1;0;0];
-tspan = [0 4*logspace(-6,6)];
-M=[1,0,0;
-0,1,0;
-0,0,0];
-options=odeset(&apos;mass&apos;,M,&apos;RelTol&apos;,1e-4,&apos;AbsTol&apos;,[1e-6 1e-10 1e-6]);
-[t,y]=ode15s(@dae_test,tspan,y0,options);
-y(:,2) = 1e4*y(:,2);
-semilogx(t,y);
-ylabel(&apos;1e4 * y(:,2)&apos;);
-title(&apos;DAE problem solved by ode15s&apos;);
-``
-</code></pre><p>###仿真结果</p>
-<div align="center"><br><img src="https://i.imgur.com/lrGgkhg.pngg" width="500" height="400"><br></div>
+    dy=dy&#39;;</code><br><strong>main.m</strong><br><br>    <code>clc;clear;close;
+    y0=[1;0;0];
+    tspan = [0 4*logspace(-6,6)];
+    M=[1,0,0;
+    0,1,0;
+    0,0,0];
+    options=odeset(&#39;mass&#39;,M,&#39;RelTol&#39;,1e-4,&#39;AbsTol&#39;,[1e-6 1e-10 1e-6]);
+    [t,y]=ode15s(@dae_test,tspan,y0,options);
+    y(:,2) = 1e4*y(:,2);
+    semilogx(t,y);
+    ylabel(&#39;1e4 * y(:,2)&#39;);
+    title(&#39;DAE problem solved by ode15s&#39;);</code><br>### 仿真结果<br><div align="center"><br><img src="https://i.imgur.com/lrGgkhg.pngg" width="400" height="300"><br></div>
           
         
       
